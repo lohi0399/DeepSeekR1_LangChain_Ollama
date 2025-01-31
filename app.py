@@ -87,8 +87,16 @@ system_prompt = SystemMessagePromptTemplate.from_template(
 )
 
 # Session state management
+
+# This maintains a persistent chat log, we store messages in st.sessio_state. If no prior chat history exists, initialize it with a greeting from the AI.
+# This maintains chat history across user interactions.
+
 if "message_log" not in st.session_state:
     st.session_state.message_log = [{"role": "ai", "content": "Hi! I'm DeepSeek. How can I help you code today? 💻"}] # All this information will be stored as chat history
+
+
+
+# Displayin the Chat Messages
 
 # Chat container
 chat_container = st.container()
@@ -99,14 +107,19 @@ with chat_container:
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
 
+
+# Processing User Input 
+
 # Chat input and processing
-user_query = st.chat_input("Type your coding question here...")
+# Waits for user input in a chat-style box.
+# Stores input as user_query.
 
-def generate_ai_response(prompt_chain):
-    processing_pipeline=prompt_chain | llm_engine | StrOutputParser()
-    return processing_pipeline.invoke({})
+user_query = st.chat_input("Type your question here...")
 
+# AI reposnse generation
 def build_prompt_chain():
+
+    # Combines previous messages into a structures conversation --> Maintain context
     prompt_sequence = [system_prompt]
     for msg in st.session_state.message_log:
         if msg["role"] == "user":
@@ -114,6 +127,15 @@ def build_prompt_chain():
         elif msg["role"] == "ai":
             prompt_sequence.append(AIMessagePromptTemplate.from_template(msg["content"]))
     return ChatPromptTemplate.from_messages(prompt_sequence)
+
+
+def generate_ai_response(prompt_chain):
+
+    # This passes the chat history (prompt_chain) to the AI. Processes responses via ChatOllama. Parses output into plain text (StrOutputParser())
+    processing_pipeline=prompt_chain | llm_engine | StrOutputParser()
+    return processing_pipeline.invoke({})
+
+# Store and Display AI reponse
 
 if user_query:
     # Add user message to log
