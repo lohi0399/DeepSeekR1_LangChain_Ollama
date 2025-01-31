@@ -5,4 +5,5 @@ Simple GenAI app using DeepSeek R1 , Langchain and Ollama.
 2. run the command ollama run deepseek-r:1.5b (I have choosen the smallest one to save time pulling). This model is basically a distilled model DeepSeek-R1-Distill-Qwen-1.5B
 
 Step 1: make a python virtual environment using `python -m venv .venv`
+
 Step 2: install all the requirements `pip install -r requirements.txt`
