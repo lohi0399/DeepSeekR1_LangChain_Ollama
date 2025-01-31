@@ -70,7 +70,7 @@ with st.sidebar:
     st.markdown("Built with [Ollama](https://ollama.ai/) | [LangChain](https://python.langchain.com/)")
 
 
-# initiate the chat engine
+# initiate the chat engine (MAIN CODING)
 
 llm_engine=ChatOllama(
     model=selected_model,
@@ -88,7 +88,7 @@ system_prompt = SystemMessagePromptTemplate.from_template(
 
 # Session state management
 if "message_log" not in st.session_state:
-    st.session_state.message_log = [{"role": "ai", "content": "Hi! I'm DeepSeek. How can I help you code today? 💻"}]
+    st.session_state.message_log = [{"role": "ai", "content": "Hi! I'm DeepSeek. How can I help you code today? 💻"}] # All this information will be stored as chat history
 
 # Chat container
 chat_container = st.container()
@@ -125,7 +125,7 @@ if user_query:
         ai_response = generate_ai_response(prompt_chain)
     
     # Add AI response to log
-    st.session_state.message_log.append({"role": "ai", "content": ai_response})
+    st.session_state.message_log.append({"role": "ai", "content": ai_response}) # The AI response is appended over here
     
     # Rerun to update chat display
     st.rerun()
