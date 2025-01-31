@@ -39,7 +39,7 @@ pip install -r requirements.txt
 ---
 
 ## **🌐 Application Interface**
-Once the setup is complete, you can launch the app. The website interface looks like this:
+Once the setup is complete run `streamlit run app.py` to launch the app. The website interface looks like this:
 
 ![Website Preview](images/website.png)
 
