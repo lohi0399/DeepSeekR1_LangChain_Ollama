@@ -1,5 +1,5 @@
 # **DeepSeekR1_LangChain_Ollama**  
-A simple **GenAI app** leveraging **DeepSeek R1**, **LangChain**, and **Ollama**.
+A simple **GenAI app** leveraging **DeepSeek R1**, **LangChain**, and **Ollama** to run it on your local machine.
 
 ---
 
